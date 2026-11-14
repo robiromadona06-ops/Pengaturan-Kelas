@@ -1,0 +1,769 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net (Default Deny)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ==================== Global Helpers ====================
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedSignedIn() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isBootstrappedAdmin() {
+      return isVerifiedSignedIn() && request.auth.token.email == 'robiromadona06@guru.smk.belajar.id';
+    }
+
+    function isAdmin() {
+      return isBootstrappedAdmin() || (isVerifiedSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)));
+    }
+
+    function isStr(val, minLen, maxLen) {
+      return val is string && val.size() >= minLen && val.size() <= maxLen;
+    }
+
+    function isCreateTimestamps(data) {
+      return data.createdAt == request.time && data.updatedAt == request.time;
+    }
+
+    function isUpdateTimestamps(data) {
+      return data.createdAt == existing().createdAt && data.updatedAt == request.time;
+    }
+
+    // ==================== Validation Blueprints ====================
+
+    function isValidAdminUser(data) {
+      return data.keys().hasAll(['uid', 'email', 'displayName', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'email', 'displayName', 'createdAt', 'updatedAt'])
+        && isValidId(data.uid)
+        && isStr(data.email, 3, 200)
+        && isStr(data.displayName, 0, 150)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['uid', 'displayName', 'role', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'displayName', 'role', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.uid)
+        && isStr(data.displayName, 1, 150)
+        && data.role in ['admin', 'wali', 'guru']
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidUserPrivateInfo(data) {
+      return data.keys().hasAll(['email', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['email', 'ownerId', 'createdAt', 'updatedAt'])
+        && isStr(data.email, 3, 200)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidSchoolSetting(data) {
+      return data.keys().hasAll(['sekolah', 'jurusan', 'waInfo', 'guru', 'wali', 'semester', 'mulai', 'kkm', 'b_sikap', 'b_tugas', 'b_proyek', 'b_uts', 'b_uas', 'logo', 'kaldikAutoSync', 'kaldikWilayah', 'kaldikTahunAjaran', 'kaldikLastSync', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['sekolah', 'jurusan', 'waInfo', 'guru', 'wali', 'semester', 'mulai', 'kkm', 'b_sikap', 'b_tugas', 'b_proyek', 'b_uts', 'b_uas', 'logo', 'jurusanLogos', 'kaldikAutoSync', 'kaldikWilayah', 'kaldikTahunAjaran', 'kaldikLastSync', 'ownerId', 'createdAt', 'updatedAt'])
+        && isStr(data.sekolah, 1, 200)
+        && isStr(data.jurusan, 0, 500)
+        && isStr(data.waInfo, 0, 40)
+        && isStr(data.guru, 0, 150)
+        && isStr(data.wali, 0, 150)
+        && isStr(data.semester, 0, 80)
+        && isStr(data.mulai, 0, 20)
+        && isStr(data.kkm, 0, 10)
+        && isStr(data.b_sikap, 0, 10)
+        && isStr(data.b_tugas, 0, 10)
+        && isStr(data.b_proyek, 0, 10)
+        && isStr(data.b_uts, 0, 10)
+        && isStr(data.b_uas, 0, 10)
+        && isStr(data.logo, 0, 600000)
+        && (!('jurusanLogos' in data) || (data.jurusanLogos is map && data.jurusanLogos.size() <= 30))
+        && data.kaldikAutoSync in ['0', '1']
+        && isStr(data.kaldikWilayah, 0, 80)
+        && isStr(data.kaldikTahunAjaran, 0, 30)
+        && isStr(data.kaldikLastSync, 0, 40)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidSchoolClass(data) {
+      return data.keys().hasAll(['nama', 'jurusan', 'mapel', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['nama', 'jurusan', 'mapel', 'ownerId', 'createdAt', 'updatedAt'])
+        && isStr(data.nama, 1, 100)
+        && isStr(data.jurusan, 0, 100)
+        && isStr(data.mapel, 0, 500)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidSubject(data) {
+      return data.keys().hasAll(['nama', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['nama', 'ownerId', 'createdAt', 'updatedAt'])
+        && isStr(data.nama, 1, 120)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidStudent(data) {
+      return data.keys().hasAll(['kelas', 'nama', 'nis', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'nama', 'nis', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.nama, 1, 150)
+        && isStr(data.nis, 0, 40)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidStudentPrivate(data) {
+      return data.keys().hasAll(['noSiswa', 'noOrtu', 'alamat', 'kesehatan', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['noSiswa', 'noOrtu', 'alamat', 'kesehatan', 'pinHash', 'ownerId', 'createdAt', 'updatedAt'])
+        && isStr(data.noSiswa, 0, 40)
+        && isStr(data.noOrtu, 0, 40)
+        && isStr(data.alamat, 0, 400)
+        && isStr(data.kesehatan, 0, 300)
+        && (!('pinHash' in data) || isStr(data.pinHash, 0, 128))
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidAttendanceRecord(data) {
+      return data.keys().hasAll(['kelas', 'tanggal', 'siswaId', 'kode', 'keterangan', 'sumber', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'tanggal', 'siswaId', 'kode', 'keterangan', 'sumber', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.tanggal, 10, 20)
+        && isValidId(data.siswaId)
+        && data.kode in ['H', 'S', 'I', 'A', 'T', 'D']
+        && isStr(data.keterangan, 0, 300)
+        && isStr(data.sumber, 0, 40)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidAssignment(data) {
+      return data.keys().hasAll(['kelas', 'judul', 'mapel', 'deskripsi', 'tenggat', 'jenis', 'fileId', 'namaFile', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'judul', 'mapel', 'deskripsi', 'tenggat', 'jenis', 'fileId', 'namaFile', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.judul, 1, 200)
+        && isStr(data.mapel, 0, 120)
+        && isStr(data.deskripsi, 0, 4000)
+        && isStr(data.tenggat, 0, 30)
+        && isStr(data.jenis, 0, 50)
+        && isStr(data.fileId, 0, 128)
+        && isStr(data.namaFile, 0, 200)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidSubmission(data) {
+      return data.keys().hasAll(['tugasId', 'siswaId', 'status', 'nilai', 'fileId', 'namaFile', 'tanggalKumpul', 'catatanSiswa', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['tugasId', 'siswaId', 'status', 'nilai', 'fileId', 'namaFile', 'tanggalKumpul', 'catatanSiswa', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.tugasId)
+        && isValidId(data.siswaId)
+        && data.status in ['Belum', 'Tepat Waktu', 'Terlambat']
+        && isStr(data.nilai, 0, 20)
+        && isStr(data.fileId, 0, 128)
+        && isStr(data.namaFile, 0, 200)
+        && isStr(data.tanggalKumpul, 0, 40)
+        && isStr(data.catatanSiswa, 0, 1000)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidGradeRecord(data) {
+      return data.keys().hasAll(['kelas', 'siswaId', 'sikap', 'tugas', 'proyek', 'uts', 'uas', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'siswaId', 'sikap', 'tugas', 'proyek', 'uts', 'uas', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isValidId(data.siswaId)
+        && isStr(data.sikap, 0, 10)
+        && isStr(data.tugas, 0, 10)
+        && isStr(data.proyek, 0, 10)
+        && isStr(data.uts, 0, 10)
+        && isStr(data.uas, 0, 10)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidBehaviorLog(data) {
+      return data.keys().hasAll(['kelas', 'tanggal', 'siswaId', 'jenis', 'level', 'catatan', 'tindakLanjut', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'tanggal', 'siswaId', 'jenis', 'level', 'catatan', 'tindakLanjut', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.tanggal, 0, 20)
+        && isValidId(data.siswaId)
+        && isStr(data.jenis, 1, 60)
+        && isStr(data.level, 0, 10)
+        && isStr(data.catatan, 0, 1000)
+        && isStr(data.tindakLanjut, 0, 500)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidChecklistItem(data) {
+      return data.keys().hasAll(['kelas', 'item', 'selesai', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'item', 'selesai', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.item, 1, 20)
+        && data.selesai in ['0', '1']
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidSeatingConfig(data) {
+      return data.keys().hasAll(['kelas', 'baris', 'kolom', 'grup', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'baris', 'kolom', 'grup', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.baris, 1, 10)
+        && isStr(data.kolom, 1, 10)
+        && isStr(data.grup, 0, 10)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidSeatingAssignment(data) {
+      return data.keys().hasAll(['kelas', 'baris', 'kolom', 'siswaId', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'baris', 'kolom', 'siswaId', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.baris, 1, 10)
+        && isStr(data.kolom, 1, 10)
+        && isValidId(data.siswaId)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidPicketSchedule(data) {
+      return data.keys().hasAll(['kelas', 'hari', 'siswaId', 'tugas', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'hari', 'siswaId', 'tugas', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.hari, 1, 20)
+        && isValidId(data.siswaId)
+        && isStr(data.tugas, 0, 200)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidClassStructure(data) {
+      return data.keys().hasAll(['kelas', 'jabatan', 'siswaId', 'tingkat', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'jabatan', 'siswaId', 'tingkat', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.jabatan, 1, 100)
+        && isStr(data.siswaId, 0, 128)
+        && isStr(data.tingkat, 0, 10)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidScheduleItem(data) {
+      return data.keys().hasAll(['kelas', 'hari', 'mulai', 'selesai', 'mapel', 'guru', 'jenis', 'pekan', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'hari', 'mulai', 'selesai', 'mapel', 'guru', 'jenis', 'pekan', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && data.hari in ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
+        && isStr(data.mulai, 1, 10)
+        && isStr(data.selesai, 1, 10)
+        && isStr(data.mapel, 0, 120)
+        && isStr(data.guru, 0, 150)
+        && isStr(data.jenis, 0, 40)
+        && isStr(data.pekan, 0, 5)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidScheduleConfig(data) {
+      return data.keys().hasAll(['kelas', 'sistem', 'mulai', 'durasi', 'jumlah', 'istirahat', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'sistem', 'mulai', 'durasi', 'jumlah', 'istirahat', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.sistem, 1, 20)
+        && isStr(data.mulai, 0, 10)
+        && isStr(data.durasi, 0, 10)
+        && isStr(data.jumlah, 0, 10)
+        && isStr(data.istirahat, 0, 100)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidAcademicEvent(data) {
+      return data.keys().hasAll(['mulai', 'selesai', 'kegiatan', 'jenis', 'sumber', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['mulai', 'selesai', 'kegiatan', 'jenis', 'sumber', 'ownerId', 'createdAt', 'updatedAt'])
+        && isStr(data.mulai, 10, 20)
+        && isStr(data.selesai, 0, 20)
+        && isStr(data.kegiatan, 1, 300)
+        && isStr(data.jenis, 1, 60)
+        && isStr(data.sumber, 0, 100)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidLearningObjective(data) {
+      return data.keys().hasAll(['kelas', 'kode', 'tujuan', 'materi', 'status', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'kode', 'tujuan', 'materi', 'status', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.kode, 1, 40)
+        && isStr(data.tujuan, 1, 1000)
+        && isStr(data.materi, 0, 300)
+        && isStr(data.status, 0, 40)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidTeachingModule(data) {
+      return data.keys().hasAll(['kelas', 'judul', 'mapel', 'alokasi', 'tpIds', 'pembuka', 'inti', 'penutup', 'asesmen', 'media', 'catatan', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'judul', 'mapel', 'alokasi', 'tpIds', 'pembuka', 'inti', 'penutup', 'asesmen', 'media', 'catatan', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.judul, 1, 250)
+        && isStr(data.mapel, 0, 120)
+        && isStr(data.alokasi, 0, 80)
+        && isStr(data.tpIds, 0, 500)
+        && isStr(data.pembuka, 0, 4000)
+        && isStr(data.inti, 0, 8000)
+        && isStr(data.penutup, 0, 4000)
+        && isStr(data.asesmen, 0, 4000)
+        && isStr(data.media, 0, 500)
+        && isStr(data.catatan, 0, 2000)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidStarterPrompt(data) {
+      return data.keys().hasAll(['kelas', 'judul', 'tautan', 'pertanyaan', 'slide', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'judul', 'tautan', 'pertanyaan', 'slide', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.judul, 1, 250)
+        && isStr(data.tautan, 0, 500)
+        && isStr(data.pertanyaan, 0, 2000)
+        && isStr(data.slide, 0, 15000)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidCloudFile(data) {
+      return data.keys().hasAll(['kelas', 'namaFile', 'tipeMime', 'ukuran', 'tanggalUnggah', 'pengunggah', 'statusCloud', 'pathSimpan', 'analisis', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'namaFile', 'tipeMime', 'ukuran', 'tanggalUnggah', 'pengunggah', 'statusCloud', 'pathSimpan', 'analisis', 'ownerId', 'createdAt', 'updatedAt'])
+        && isStr(data.kelas, 0, 128)
+        && isStr(data.namaFile, 1, 250)
+        && isStr(data.tipeMime, 0, 120)
+        && isStr(data.ukuran, 0, 40)
+        && isStr(data.tanggalUnggah, 0, 40)
+        && isStr(data.pengunggah, 0, 150)
+        && isStr(data.statusCloud, 0, 120)
+        && isStr(data.pathSimpan, 0, 300)
+        && (data.analisis == null || data.analisis is map)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidCbtExam(data) {
+      return data.keys().hasAll(['kelas', 'judul', 'mapel', 'durasi', 'status', 'acak', 'sumberMateri', 'namaFileMateri', 'tanggalBuat', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['kelas', 'judul', 'mapel', 'durasi', 'status', 'acak', 'sumberMateri', 'namaFileMateri', 'tanggalBuat', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.kelas)
+        && isStr(data.judul, 1, 250)
+        && isStr(data.mapel, 0, 120)
+        && isStr(data.durasi, 0, 10)
+        && data.status in ['Draft', 'Aktif', 'Selesai']
+        && data.acak in ['0', '1']
+        && isStr(data.sumberMateri, 0, 50000)
+        && isStr(data.namaFileMateri, 0, 250)
+        && isStr(data.tanggalBuat, 0, 40)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidCbtPgQuestion(data) {
+      return data.keys().hasAll(['pertanyaan', 'opsiA', 'opsiB', 'opsiC', 'opsiD', 'opsiE', 'kunci', 'pembahasan', 'kutipanMateri', 'order', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['pertanyaan', 'opsiA', 'opsiB', 'opsiC', 'opsiD', 'opsiE', 'kunci', 'pembahasan', 'kutipanMateri', 'order', 'ownerId', 'createdAt', 'updatedAt'])
+        && isStr(data.pertanyaan, 1, 2000)
+        && isStr(data.opsiA, 0, 500)
+        && isStr(data.opsiB, 0, 500)
+        && isStr(data.opsiC, 0, 500)
+        && isStr(data.opsiD, 0, 500)
+        && isStr(data.opsiE, 0, 500)
+        && data.kunci in ['A', 'B', 'C', 'D', 'E']
+        && isStr(data.pembahasan, 0, 2000)
+        && isStr(data.kutipanMateri, 0, 1000)
+        && data.order is number
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidCbtEssayQuestion(data) {
+      return data.keys().hasAll(['pertanyaan', 'kunciRubrik', 'poinMaksimal', 'kutipanMateri', 'order', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['pertanyaan', 'kunciRubrik', 'poinMaksimal', 'kutipanMateri', 'order', 'ownerId', 'createdAt', 'updatedAt'])
+        && isStr(data.pertanyaan, 1, 2000)
+        && isStr(data.kunciRubrik, 0, 3000)
+        && data.poinMaksimal is number
+        && isStr(data.kutipanMateri, 0, 1000)
+        && data.order is number
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidCbtResult(data) {
+      return data.keys().hasAll(['cbtId', 'kelas', 'siswaId', 'mulai', 'selesai', 'jawaban', 'skorPG', 'skorUraian', 'skorAkhir', 'feedbackAI', 'statusNilai', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['cbtId', 'kelas', 'siswaId', 'mulai', 'selesai', 'jawaban', 'skorPG', 'skorUraian', 'skorAkhir', 'feedbackAI', 'statusNilai', 'ownerId', 'createdAt', 'updatedAt'])
+        && isValidId(data.cbtId)
+        && isValidId(data.kelas)
+        && isValidId(data.siswaId)
+        && isStr(data.mulai, 0, 40)
+        && isStr(data.selesai, 0, 40)
+        && (data.jawaban == null || data.jawaban is map)
+        && isStr(data.skorPG, 0, 20)
+        && isStr(data.skorUraian, 0, 20)
+        && isStr(data.skorAkhir, 0, 20)
+        && (data.feedbackAI == null || data.feedbackAI is map)
+        && data.statusNilai in ['Menunggu Nilai Uraian', 'Dinilai AI', 'Final', 'Selesai']
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidStaffUser(data) {
+      return data.keys().hasAll(['nama', 'username', 'peran', 'kelas', 'mapel', 'kelasWali', 'kelasMengajar', 'ownerId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['nama', 'username', 'peran', 'kelas', 'mapel', 'kelasWali', 'kelasMengajar', 'ownerId', 'createdAt', 'updatedAt'])
+        && isStr(data.nama, 1, 150)
+        && isStr(data.username, 3, 60)
+        && isStr(data.peran, 1, 40)
+        && isStr(data.kelas, 0, 500)
+        && isStr(data.mapel, 0, 500)
+        && isStr(data.kelasWali, 0, 500)
+        && isStr(data.kelasMengajar, 0, 500)
+        && isValidId(data.ownerId)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    // ==================== Collection Rules ====================
+
+    match /admins/{adminId} {
+      allow get: if isVerifiedSignedIn() && isValidId(adminId) && (adminId == request.auth.uid || isAdmin());
+      allow list: if isBootstrappedAdmin();
+      allow create: if isBootstrappedAdmin() && isValidId(adminId) && isValidAdminUser(incoming()) && isCreateTimestamps(incoming());
+      allow update: if isBootstrappedAdmin() && isValidId(adminId) && isValidAdminUser(incoming()) && isUpdateTimestamps(incoming())
+        && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'updatedAt']);
+      allow delete: if isBootstrappedAdmin() && isValidId(adminId);
+    }
+
+    match /users/{userId} {
+      allow get: if isVerifiedSignedIn() && isValidId(userId) && (userId == request.auth.uid || (resource != null && existing().ownerId == request.auth.uid) || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(userId) && isValidUserProfile(incoming()) && isCreateTimestamps(incoming())
+        && incoming().uid == request.auth.uid && incoming().ownerId == request.auth.uid
+        && (incoming().role != 'admin' || isAdmin());
+      allow update: if isVerifiedSignedIn() && isValidId(userId) && isValidUserProfile(incoming()) && isUpdateTimestamps(incoming())
+        && incoming().uid == existing().uid && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().role == existing().role && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'updatedAt'])));
+      allow delete: if isAdmin() && isValidId(userId);
+
+      match /private/{docId} {
+        allow get: if isVerifiedSignedIn() && isValidId(userId) && isValidId(docId) && (userId == request.auth.uid || (resource != null && existing().ownerId == request.auth.uid) || isAdmin());
+        allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+        allow create: if isVerifiedSignedIn() && isValidId(userId) && isValidId(docId) && isValidUserPrivateInfo(incoming()) && isCreateTimestamps(incoming())
+          && incoming().ownerId == request.auth.uid
+          && existsAfter(/databases/$(database)/documents/users/$(userId))
+          && getAfter(/databases/$(database)/documents/users/$(userId)).data.ownerId == request.auth.uid;
+        allow update: if isVerifiedSignedIn() && isValidId(userId) && isValidId(docId) && isValidUserPrivateInfo(incoming()) && isUpdateTimestamps(incoming())
+          && incoming().ownerId == existing().ownerId
+          && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['email', 'updatedAt'])));
+        allow delete: if isVerifiedSignedIn() && isValidId(userId) && isValidId(docId) && (existing().ownerId == request.auth.uid || isAdmin());
+      }
+    }
+
+    match /settings/{settingId} {
+      allow get: if isVerifiedSignedIn() && isValidId(settingId) && (settingId == 'main_' + request.auth.uid || (resource != null && existing().ownerId == request.auth.uid) || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(settingId) && isValidSchoolSetting(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(settingId) && isValidSchoolSetting(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['sekolah', 'jurusan', 'waInfo', 'guru', 'wali', 'semester', 'mulai', 'kkm', 'b_sikap', 'b_tugas', 'b_proyek', 'b_uts', 'b_uas', 'logo', 'jurusanLogos', 'kaldikAutoSync', 'kaldikWilayah', 'kaldikTahunAjaran', 'kaldikLastSync', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(settingId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /classes/{classId} {
+      allow get: if isVerifiedSignedIn() && isValidId(classId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(classId) && isValidSchoolClass(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(classId) && isValidSchoolClass(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['nama', 'jurusan', 'mapel', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(classId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /subjects/{subjectId} {
+      allow get: if isVerifiedSignedIn() && isValidId(subjectId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(subjectId) && isValidSubject(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(subjectId) && isValidSubject(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['nama', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(subjectId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /students/{studentId} {
+      allow get: if isVerifiedSignedIn() && isValidId(studentId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(studentId) && isValidStudent(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(studentId) && isValidStudent(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['kelas', 'nama', 'nis', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(studentId) && (existing().ownerId == request.auth.uid || isAdmin());
+
+      match /private/{docId} {
+        allow get: if isVerifiedSignedIn() && isValidId(studentId) && isValidId(docId)
+          && ((resource == null && exists(/databases/$(database)/documents/students/$(studentId)) && get(/databases/$(database)/documents/students/$(studentId)).data.ownerId == request.auth.uid)
+              || (resource != null && existing().ownerId == request.auth.uid)
+              || isAdmin());
+        allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+        allow create: if isVerifiedSignedIn() && isValidId(studentId) && isValidId(docId) && isValidStudentPrivate(incoming()) && isCreateTimestamps(incoming())
+          && incoming().ownerId == request.auth.uid
+          && existsAfter(/databases/$(database)/documents/students/$(studentId))
+          && getAfter(/databases/$(database)/documents/students/$(studentId)).data.ownerId == request.auth.uid;
+        allow update: if isVerifiedSignedIn() && isValidId(studentId) && isValidId(docId) && isValidStudentPrivate(incoming()) && isUpdateTimestamps(incoming())
+          && incoming().ownerId == existing().ownerId
+          && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['noSiswa', 'noOrtu', 'alamat', 'kesehatan', 'pinHash', 'updatedAt'])));
+        allow delete: if isVerifiedSignedIn() && isValidId(studentId) && isValidId(docId) && (existing().ownerId == request.auth.uid || isAdmin());
+      }
+    }
+
+    match /attendance/{attendanceId} {
+      allow get: if isVerifiedSignedIn() && isValidId(attendanceId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(attendanceId) && isValidAttendanceRecord(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(attendanceId) && isValidAttendanceRecord(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['kode', 'keterangan', 'sumber', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(attendanceId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /assignments/{assignmentId} {
+      allow get: if isVerifiedSignedIn() && isValidId(assignmentId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(assignmentId) && isValidAssignment(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(assignmentId) && isValidAssignment(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['kelas', 'judul', 'mapel', 'deskripsi', 'tenggat', 'jenis', 'fileId', 'namaFile', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(assignmentId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /submissions/{submissionId} {
+      allow get: if isVerifiedSignedIn() && isValidId(submissionId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(submissionId) && isValidSubmission(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(submissionId) && isValidSubmission(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'nilai', 'fileId', 'namaFile', 'tanggalKumpul', 'catatanSiswa', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(submissionId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /grades/{gradeId} {
+      allow get: if isVerifiedSignedIn() && isValidId(gradeId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(gradeId) && isValidGradeRecord(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(gradeId) && isValidGradeRecord(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['sikap', 'tugas', 'proyek', 'uts', 'uas', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(gradeId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /behaviors/{behaviorId} {
+      allow get: if isVerifiedSignedIn() && isValidId(behaviorId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(behaviorId) && isValidBehaviorLog(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(behaviorId) && isValidBehaviorLog(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['tanggal', 'jenis', 'level', 'catatan', 'tindakLanjut', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(behaviorId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /checklists/{checklistId} {
+      allow get: if isVerifiedSignedIn() && isValidId(checklistId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(checklistId) && isValidChecklistItem(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(checklistId) && isValidChecklistItem(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['selesai', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(checklistId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /seatingConfigs/{configId} {
+      allow get: if isVerifiedSignedIn() && isValidId(configId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(configId) && isValidSeatingConfig(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(configId) && isValidSeatingConfig(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['baris', 'kolom', 'grup', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(configId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /seating/{seatingId} {
+      allow get: if isVerifiedSignedIn() && isValidId(seatingId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(seatingId) && isValidSeatingAssignment(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(seatingId) && isValidSeatingAssignment(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['baris', 'kolom', 'siswaId', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(seatingId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /pickets/{picketId} {
+      allow get: if isVerifiedSignedIn() && isValidId(picketId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(picketId) && isValidPicketSchedule(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(picketId) && isValidPicketSchedule(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['hari', 'siswaId', 'tugas', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(picketId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /structures/{structureId} {
+      allow get: if isVerifiedSignedIn() && isValidId(structureId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(structureId) && isValidClassStructure(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(structureId) && isValidClassStructure(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['jabatan', 'siswaId', 'tingkat', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(structureId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /schedules/{scheduleId} {
+      allow get: if isVerifiedSignedIn() && isValidId(scheduleId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(scheduleId) && isValidScheduleItem(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(scheduleId) && isValidScheduleItem(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['hari', 'mulai', 'selesai', 'mapel', 'guru', 'jenis', 'pekan', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(scheduleId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /scheduleConfigs/{configId} {
+      allow get: if isVerifiedSignedIn() && isValidId(configId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(configId) && isValidScheduleConfig(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(configId) && isValidScheduleConfig(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['sistem', 'mulai', 'durasi', 'jumlah', 'istirahat', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(configId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /academicEvents/{eventId} {
+      allow get: if isVerifiedSignedIn() && isValidId(eventId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(eventId) && isValidAcademicEvent(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(eventId) && isValidAcademicEvent(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['mulai', 'selesai', 'kegiatan', 'jenis', 'sumber', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(eventId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /learningObjectives/{tpId} {
+      allow get: if isVerifiedSignedIn() && isValidId(tpId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(tpId) && isValidLearningObjective(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(tpId) && isValidLearningObjective(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['kode', 'tujuan', 'materi', 'status', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(tpId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /modules/{moduleId} {
+      allow get: if isVerifiedSignedIn() && isValidId(moduleId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(moduleId) && isValidTeachingModule(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(moduleId) && isValidTeachingModule(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['judul', 'mapel', 'alokasi', 'tpIds', 'pembuka', 'inti', 'penutup', 'asesmen', 'media', 'catatan', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(moduleId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /starters/{starterId} {
+      allow get: if isVerifiedSignedIn() && isValidId(starterId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(starterId) && isValidStarterPrompt(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(starterId) && isValidStarterPrompt(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['judul', 'tautan', 'pertanyaan', 'slide', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(starterId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /cloudFiles/{fileId} {
+      allow get: if isVerifiedSignedIn() && isValidId(fileId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(fileId) && isValidCloudFile(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(fileId) && isValidCloudFile(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['statusCloud', 'analisis', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(fileId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /cbtExams/{cbtId} {
+      allow get: if isVerifiedSignedIn() && isValidId(cbtId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(cbtId) && isValidCbtExam(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(cbtId) && isValidCbtExam(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['judul', 'mapel', 'durasi', 'status', 'acak', 'sumberMateri', 'namaFileMateri', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(cbtId) && (existing().ownerId == request.auth.uid || isAdmin());
+
+      match /pgQuestions/{qId} {
+        allow get: if isVerifiedSignedIn() && isValidId(cbtId) && isValidId(qId) && (existing().ownerId == request.auth.uid || isAdmin());
+        allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+        allow create: if isVerifiedSignedIn() && isValidId(cbtId) && isValidId(qId) && isValidCbtPgQuestion(incoming()) && isCreateTimestamps(incoming())
+          && incoming().ownerId == request.auth.uid
+          && existsAfter(/databases/$(database)/documents/cbtExams/$(cbtId))
+          && getAfter(/databases/$(database)/documents/cbtExams/$(cbtId)).data.ownerId == request.auth.uid;
+        allow update: if isVerifiedSignedIn() && isValidId(cbtId) && isValidId(qId) && isValidCbtPgQuestion(incoming()) && isUpdateTimestamps(incoming())
+          && incoming().ownerId == existing().ownerId
+          && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['pertanyaan', 'opsiA', 'opsiB', 'opsiC', 'opsiD', 'opsiE', 'kunci', 'pembahasan', 'kutipanMateri', 'order', 'updatedAt'])));
+        allow delete: if isVerifiedSignedIn() && isValidId(cbtId) && isValidId(qId) && (existing().ownerId == request.auth.uid || isAdmin());
+      }
+
+      match /essayQuestions/{qId} {
+        allow get: if isVerifiedSignedIn() && isValidId(cbtId) && isValidId(qId) && (existing().ownerId == request.auth.uid || isAdmin());
+        allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+        allow create: if isVerifiedSignedIn() && isValidId(cbtId) && isValidId(qId) && isValidCbtEssayQuestion(incoming()) && isCreateTimestamps(incoming())
+          && incoming().ownerId == request.auth.uid
+          && existsAfter(/databases/$(database)/documents/cbtExams/$(cbtId))
+          && getAfter(/databases/$(database)/documents/cbtExams/$(cbtId)).data.ownerId == request.auth.uid;
+        allow update: if isVerifiedSignedIn() && isValidId(cbtId) && isValidId(qId) && isValidCbtEssayQuestion(incoming()) && isUpdateTimestamps(incoming())
+          && incoming().ownerId == existing().ownerId
+          && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['pertanyaan', 'kunciRubrik', 'poinMaksimal', 'kutipanMateri', 'order', 'updatedAt'])));
+        allow delete: if isVerifiedSignedIn() && isValidId(cbtId) && isValidId(qId) && (existing().ownerId == request.auth.uid || isAdmin());
+      }
+    }
+
+    match /cbtResults/{resultId} {
+      allow get: if isVerifiedSignedIn() && isValidId(resultId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(resultId) && isValidCbtResult(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(resultId) && isValidCbtResult(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && existing().statusNilai != 'Final' && incoming().diff(existing()).affectedKeys().hasOnly(['skorUraian', 'skorAkhir', 'feedbackAI', 'statusNilai', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(resultId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /staffUsers/{staffId} {
+      allow get: if isVerifiedSignedIn() && isValidId(staffId) && ((resource != null && existing().ownerId == request.auth.uid) || isAdmin());
+      allow list: if isVerifiedSignedIn() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedSignedIn() && isValidId(staffId) && isValidStaffUser(incoming()) && isCreateTimestamps(incoming()) && incoming().ownerId == request.auth.uid;
+      allow update: if isVerifiedSignedIn() && isValidId(staffId) && isValidStaffUser(incoming()) && isUpdateTimestamps(incoming()) && incoming().ownerId == existing().ownerId
+        && (isAdmin() || (existing().ownerId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['nama', 'username', 'peran', 'kelas', 'mapel', 'kelasWali', 'kelasMengajar', 'updatedAt'])));
+      allow delete: if isVerifiedSignedIn() && isValidId(staffId) && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+  }
+}

@@ -1,0 +1,639 @@
+{
+  "entities": {
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Registered administrator record for RBAC verification",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "email": { "type": "string", "format": "email", "maxLength": 200 },
+        "displayName": { "type": "string", "maxLength": 150 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "createdAt", "updatedAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Public-safe user profile without PII",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 150 },
+        "role": { "type": "string", "enum": ["admin", "wali", "guru"] },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "role", "ownerId", "createdAt", "updatedAt"]
+    },
+    "UserPrivateInfo": {
+      "title": "UserPrivateInfo",
+      "description": "Isolated PII document for user contact details",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email", "maxLength": 200 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "ownerId", "createdAt", "updatedAt"]
+    },
+    "SchoolSetting": {
+      "title": "SchoolSetting",
+      "description": "School configuration, grading weights, and academic calendar sync settings",
+      "type": "object",
+      "properties": {
+        "sekolah": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "jurusan": { "type": "string", "maxLength": 500 },
+        "waInfo": { "type": "string", "maxLength": 40 },
+        "guru": { "type": "string", "maxLength": 150 },
+        "wali": { "type": "string", "maxLength": 150 },
+        "semester": { "type": "string", "maxLength": 80 },
+        "mulai": { "type": "string", "maxLength": 20 },
+        "kkm": { "type": "string", "maxLength": 10 },
+        "b_sikap": { "type": "string", "maxLength": 10 },
+        "b_tugas": { "type": "string", "maxLength": 10 },
+        "b_proyek": { "type": "string", "maxLength": 10 },
+        "b_uts": { "type": "string", "maxLength": 10 },
+        "b_uas": { "type": "string", "maxLength": 10 },
+        "logo": { "type": "string", "maxLength": 600000 },
+        "jurusanLogos": { "type": "object", "description": "Map of department (jurusan) names to base64 image logos" },
+        "kaldikAutoSync": { "type": "string", "enum": ["0", "1"] },
+        "kaldikWilayah": { "type": "string", "maxLength": 80 },
+        "kaldikTahunAjaran": { "type": "string", "maxLength": 30 },
+        "kaldikLastSync": { "type": "string", "maxLength": 40 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["sekolah", "ownerId", "createdAt", "updatedAt"]
+    },
+    "SchoolClass": {
+      "title": "SchoolClass",
+      "description": "Classroom group record",
+      "type": "object",
+      "properties": {
+        "nama": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "jurusan": { "type": "string", "maxLength": 100 },
+        "mapel": { "type": "string", "maxLength": 500 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nama", "ownerId", "createdAt", "updatedAt"]
+    },
+    "Subject": {
+      "title": "Subject",
+      "description": "Curriculum subject",
+      "type": "object",
+      "properties": {
+        "nama": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nama", "ownerId", "createdAt", "updatedAt"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Core student record without sensitive PII",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "nama": { "type": "string", "minLength": 1, "maxLength": 150 },
+        "nis": { "type": "string", "maxLength": 40 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "nama", "ownerId", "createdAt", "updatedAt"]
+    },
+    "StudentPrivate": {
+      "title": "StudentPrivate",
+      "description": "Isolated student PII (phone numbers, home address, health notes)",
+      "type": "object",
+      "properties": {
+        "noSiswa": { "type": "string", "maxLength": 40 },
+        "noOrtu": { "type": "string", "maxLength": 40 },
+        "alamat": { "type": "string", "maxLength": 400 },
+        "kesehatan": { "type": "string", "maxLength": 300 },
+        "pinHash": { "type": "string", "maxLength": 128, "description": "SHA-256 hash of student portal PIN" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerId", "createdAt", "updatedAt"]
+    },
+    "AttendanceRecord": {
+      "title": "AttendanceRecord",
+      "description": "Daily attendance entry for a student",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "tanggal": { "type": "string", "minLength": 10, "maxLength": 20 },
+        "siswaId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "kode": { "type": "string", "enum": ["H", "S", "I", "A", "T", "D"] },
+        "keterangan": { "type": "string", "maxLength": 300 },
+        "sumber": { "type": "string", "maxLength": 40 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "tanggal", "siswaId", "kode", "ownerId", "createdAt", "updatedAt"]
+    },
+    "Assignment": {
+      "title": "Assignment",
+      "description": "Class assignment or quiz metadata",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "judul": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "mapel": { "type": "string", "maxLength": 120 },
+        "deskripsi": { "type": "string", "maxLength": 4000 },
+        "tenggat": { "type": "string", "maxLength": 30 },
+        "jenis": { "type": "string", "maxLength": 50 },
+        "fileId": { "type": "string", "maxLength": 128 },
+        "namaFile": { "type": "string", "maxLength": 200 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "judul", "ownerId", "createdAt", "updatedAt"]
+    },
+    "Submission": {
+      "title": "Submission",
+      "description": "Student assignment submission",
+      "type": "object",
+      "properties": {
+        "tugasId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "siswaId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "status": { "type": "string", "enum": ["Belum", "Tepat Waktu", "Terlambat"] },
+        "nilai": { "type": "string", "maxLength": 20 },
+        "fileId": { "type": "string", "maxLength": 128 },
+        "namaFile": { "type": "string", "maxLength": 200 },
+        "tanggalKumpul": { "type": "string", "maxLength": 40 },
+        "catatanSiswa": { "type": "string", "maxLength": 1000 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tugasId", "siswaId", "status", "ownerId", "createdAt", "updatedAt"]
+    },
+    "GradeRecord": {
+      "title": "GradeRecord",
+      "description": "Student grade components per class",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "siswaId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "sikap": { "type": "string", "maxLength": 10 },
+        "tugas": { "type": "string", "maxLength": 10 },
+        "proyek": { "type": "string", "maxLength": 10 },
+        "uts": { "type": "string", "maxLength": 10 },
+        "uas": { "type": "string", "maxLength": 10 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "siswaId", "ownerId", "createdAt", "updatedAt"]
+    },
+    "BehaviorLog": {
+      "title": "BehaviorLog",
+      "description": "Student behavior journal entry",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "tanggal": { "type": "string", "maxLength": 20 },
+        "siswaId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "jenis": { "type": "string", "maxLength": 60 },
+        "level": { "type": "string", "maxLength": 10 },
+        "catatan": { "type": "string", "maxLength": 1000 },
+        "tindakLanjut": { "type": "string", "maxLength": 500 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "siswaId", "jenis", "ownerId", "createdAt", "updatedAt"]
+    },
+    "ChecklistItem": {
+      "title": "ChecklistItem",
+      "description": "Class administration checklist completion record",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "item": { "type": "string", "maxLength": 20 },
+        "selesai": { "type": "string", "enum": ["0", "1"] },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "item", "selesai", "ownerId", "createdAt", "updatedAt"]
+    },
+    "SeatingConfig": {
+      "title": "SeatingConfig",
+      "description": "Classroom seating grid dimensions",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "baris": { "type": "string", "maxLength": 10 },
+        "kolom": { "type": "string", "maxLength": 10 },
+        "grup": { "type": "string", "maxLength": 10 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "baris", "kolom", "ownerId", "createdAt", "updatedAt"]
+    },
+    "SeatingAssignment": {
+      "title": "SeatingAssignment",
+      "description": "Seat placement for a student",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "baris": { "type": "string", "maxLength": 10 },
+        "kolom": { "type": "string", "maxLength": 10 },
+        "siswaId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "baris", "kolom", "siswaId", "ownerId", "createdAt", "updatedAt"]
+    },
+    "PicketSchedule": {
+      "title": "PicketSchedule",
+      "description": "Daily classroom cleaning picket assignment",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "hari": { "type": "string", "maxLength": 20 },
+        "siswaId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "tugas": { "type": "string", "maxLength": 200 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "hari", "siswaId", "ownerId", "createdAt", "updatedAt"]
+    },
+    "ClassStructure": {
+      "title": "ClassStructure",
+      "description": "Classroom leadership structure entry",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "jabatan": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "siswaId": { "type": "string", "maxLength": 128 },
+        "tingkat": { "type": "string", "maxLength": 10 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "jabatan", "ownerId", "createdAt", "updatedAt"]
+    },
+    "ScheduleItem": {
+      "title": "ScheduleItem",
+      "description": "Timetable slot for a class",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "hari": { "type": "string", "enum": ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"] },
+        "mulai": { "type": "string", "maxLength": 10 },
+        "selesai": { "type": "string", "maxLength": 10 },
+        "mapel": { "type": "string", "maxLength": 120 },
+        "guru": { "type": "string", "maxLength": 150 },
+        "jenis": { "type": "string", "maxLength": 40 },
+        "pekan": { "type": "string", "maxLength": 5 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "hari", "mulai", "selesai", "ownerId", "createdAt", "updatedAt"]
+    },
+    "ScheduleConfig": {
+      "title": "ScheduleConfig",
+      "description": "Timetable block/regular slot configuration",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "sistem": { "type": "string", "maxLength": 20 },
+        "mulai": { "type": "string", "maxLength": 10 },
+        "durasi": { "type": "string", "maxLength": 10 },
+        "jumlah": { "type": "string", "maxLength": 10 },
+        "istirahat": { "type": "string", "maxLength": 100 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "sistem", "ownerId", "createdAt", "updatedAt"]
+    },
+    "AcademicEvent": {
+      "title": "AcademicEvent",
+      "description": "Academic calendar event including Jawa Barat official calendar entries",
+      "type": "object",
+      "properties": {
+        "mulai": { "type": "string", "minLength": 10, "maxLength": 20 },
+        "selesai": { "type": "string", "maxLength": 20 },
+        "kegiatan": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "jenis": { "type": "string", "maxLength": 60 },
+        "sumber": { "type": "string", "maxLength": 100 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["mulai", "kegiatan", "jenis", "ownerId", "createdAt", "updatedAt"]
+    },
+    "LearningObjective": {
+      "title": "LearningObjective",
+      "description": "Tujuan Pembelajaran (TP) item",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "kode": { "type": "string", "maxLength": 40 },
+        "tujuan": { "type": "string", "maxLength": 1000 },
+        "materi": { "type": "string", "maxLength": 300 },
+        "status": { "type": "string", "maxLength": 40 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "kode", "tujuan", "ownerId", "createdAt", "updatedAt"]
+    },
+    "TeachingModule": {
+      "title": "TeachingModule",
+      "description": "Modul Ajar / Lesson plan",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "judul": { "type": "string", "minLength": 1, "maxLength": 250 },
+        "mapel": { "type": "string", "maxLength": 120 },
+        "alokasi": { "type": "string", "maxLength": 80 },
+        "tpIds": { "type": "string", "maxLength": 500 },
+        "pembuka": { "type": "string", "maxLength": 4000 },
+        "inti": { "type": "string", "maxLength": 8000 },
+        "penutup": { "type": "string", "maxLength": 4000 },
+        "asesmen": { "type": "string", "maxLength": 4000 },
+        "media": { "type": "string", "maxLength": 500 },
+        "catatan": { "type": "string", "maxLength": 2000 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "judul", "ownerId", "createdAt", "updatedAt"]
+    },
+    "StarterPrompt": {
+      "title": "StarterPrompt",
+      "description": "Pemantik / Slide presentation starter",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "judul": { "type": "string", "minLength": 1, "maxLength": 250 },
+        "tautan": { "type": "string", "maxLength": 500 },
+        "pertanyaan": { "type": "string", "maxLength": 2000 },
+        "slide": { "type": "string", "maxLength": 15000 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "judul", "ownerId", "createdAt", "updatedAt"]
+    },
+    "CloudFile": {
+      "title": "CloudFile",
+      "description": "Uploaded file metadata and native AI analysis object",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "maxLength": 128 },
+        "namaFile": { "type": "string", "minLength": 1, "maxLength": 250 },
+        "tipeMime": { "type": "string", "maxLength": 120 },
+        "ukuran": { "type": "string", "maxLength": 40 },
+        "tanggalUnggah": { "type": "string", "maxLength": 40 },
+        "pengunggah": { "type": "string", "maxLength": 150 },
+        "statusCloud": { "type": "string", "maxLength": 120 },
+        "pathSimpan": { "type": "string", "maxLength": 300 },
+        "analisis": { "type": "object" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["namaFile", "ownerId", "createdAt", "updatedAt"]
+    },
+    "CbtExam": {
+      "title": "CbtExam",
+      "description": "CBT exam package metadata (questions stored in subcollections)",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "judul": { "type": "string", "minLength": 1, "maxLength": 250 },
+        "mapel": { "type": "string", "maxLength": 120 },
+        "durasi": { "type": "string", "maxLength": 10 },
+        "status": { "type": "string", "enum": ["Draft", "Aktif", "Selesai"] },
+        "acak": { "type": "string", "enum": ["0", "1"] },
+        "sumberMateri": { "type": "string", "maxLength": 50000 },
+        "namaFileMateri": { "type": "string", "maxLength": 250 },
+        "tanggalBuat": { "type": "string", "maxLength": 40 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["kelas", "judul", "status", "ownerId", "createdAt", "updatedAt"]
+    },
+    "CbtPgQuestion": {
+      "title": "CbtPgQuestion",
+      "description": "Multiple choice question subcollection document for a CBT exam",
+      "type": "object",
+      "properties": {
+        "pertanyaan": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "opsiA": { "type": "string", "maxLength": 500 },
+        "opsiB": { "type": "string", "maxLength": 500 },
+        "opsiC": { "type": "string", "maxLength": 500 },
+        "opsiD": { "type": "string", "maxLength": 500 },
+        "opsiE": { "type": "string", "maxLength": 500 },
+        "kunci": { "type": "string", "enum": ["A", "B", "C", "D", "E"] },
+        "pembahasan": { "type": "string", "maxLength": 2000 },
+        "kutipanMateri": { "type": "string", "maxLength": 1000 },
+        "order": { "type": "number" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["pertanyaan", "kunci", "ownerId", "createdAt", "updatedAt"]
+    },
+    "CbtEssayQuestion": {
+      "title": "CbtEssayQuestion",
+      "description": "Essay question subcollection document for a CBT exam",
+      "type": "object",
+      "properties": {
+        "pertanyaan": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "kunciRubrik": { "type": "string", "maxLength": 3000 },
+        "poinMaksimal": { "type": "number" },
+        "kutipanMateri": { "type": "string", "maxLength": 1000 },
+        "order": { "type": "number" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["pertanyaan", "ownerId", "createdAt", "updatedAt"]
+    },
+    "CbtResult": {
+      "title": "CbtResult",
+      "description": "Student CBT exam attempt result with native Maps",
+      "type": "object",
+      "properties": {
+        "cbtId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "kelas": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "siswaId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "mulai": { "type": "string", "maxLength": 40 },
+        "selesai": { "type": "string", "maxLength": 40 },
+        "jawaban": { "type": "object" },
+        "skorPG": { "type": "string", "maxLength": 20 },
+        "skorUraian": { "type": "string", "maxLength": 20 },
+        "skorAkhir": { "type": "string", "maxLength": 20 },
+        "feedbackAI": { "type": "object" },
+        "statusNilai": { "type": "string", "enum": ["Menunggu Nilai Uraian", "Dinilai AI", "Final", "Selesai"] },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["cbtId", "kelas", "siswaId", "statusNilai", "ownerId", "createdAt", "updatedAt"]
+    },
+    "StaffUser": {
+      "title": "StaffUser",
+      "description": "Teacher or homeroom teacher assignment record",
+      "type": "object",
+      "properties": {
+        "nama": { "type": "string", "minLength": 1, "maxLength": 150 },
+        "username": { "type": "string", "minLength": 3, "maxLength": 60 },
+        "peran": { "type": "string", "maxLength": 40 },
+        "kelas": { "type": "string", "maxLength": 500 },
+        "mapel": { "type": "string", "maxLength": 500 },
+        "kelasWali": { "type": "string", "maxLength": 500 },
+        "kelasMengajar": { "type": "string", "maxLength": 500 },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nama", "username", "peran", "ownerId", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Admin role registry documents keyed by Firebase Auth UID"
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profile metadata without PII"
+    },
+    "/users/{userId}/private/{docId}": {
+      "schema": { "$ref": "#/entities/UserPrivateInfo" },
+      "description": "Isolated PII subcollection for user email"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/SchoolSetting" },
+      "description": "School settings and Jawa Barat calendar auto-sync configuration"
+    },
+    "/classes/{classId}": {
+      "schema": { "$ref": "#/entities/SchoolClass" },
+      "description": "Classes and majors"
+    },
+    "/subjects/{subjectId}": {
+      "schema": { "$ref": "#/entities/Subject" },
+      "description": "Academic subjects"
+    },
+    "/students/{studentId}": {
+      "schema": { "$ref": "#/entities/Student" },
+      "description": "Student roster without PII"
+    },
+    "/students/{studentId}/private/{docId}": {
+      "schema": { "$ref": "#/entities/StudentPrivate" },
+      "description": "Isolated student PII (phone, address, health notes)"
+    },
+    "/attendance/{attendanceId}": {
+      "schema": { "$ref": "#/entities/AttendanceRecord" },
+      "description": "Daily attendance records"
+    },
+    "/assignments/{assignmentId}": {
+      "schema": { "$ref": "#/entities/Assignment" },
+      "description": "Class assignments and projects"
+    },
+    "/submissions/{submissionId}": {
+      "schema": { "$ref": "#/entities/Submission" },
+      "description": "Student assignment submissions"
+    },
+    "/grades/{gradeId}": {
+      "schema": { "$ref": "#/entities/GradeRecord" },
+      "description": "Student grade records"
+    },
+    "/behaviors/{behaviorId}": {
+      "schema": { "$ref": "#/entities/BehaviorLog" },
+      "description": "Student behavior journal logs"
+    },
+    "/checklists/{checklistId}": {
+      "schema": { "$ref": "#/entities/ChecklistItem" },
+      "description": "Class administration checklist states"
+    },
+    "/seatingConfigs/{configId}": {
+      "schema": { "$ref": "#/entities/SeatingConfig" },
+      "description": "Classroom seating dimensions"
+    },
+    "/seating/{seatingId}": {
+      "schema": { "$ref": "#/entities/SeatingAssignment" },
+      "description": "Classroom seat assignments"
+    },
+    "/pickets/{picketId}": {
+      "schema": { "$ref": "#/entities/PicketSchedule" },
+      "description": "Daily picket schedules"
+    },
+    "/structures/{structureId}": {
+      "schema": { "$ref": "#/entities/ClassStructure" },
+      "description": "Class leadership structure"
+    },
+    "/schedules/{scheduleId}": {
+      "schema": { "$ref": "#/entities/ScheduleItem" },
+      "description": "Weekly class timetable entries"
+    },
+    "/scheduleConfigs/{configId}": {
+      "schema": { "$ref": "#/entities/ScheduleConfig" },
+      "description": "Timetable slot configurations"
+    },
+    "/academicEvents/{eventId}": {
+      "schema": { "$ref": "#/entities/AcademicEvent" },
+      "description": "Academic calendar events including Jawa Barat official calendar"
+    },
+    "/learningObjectives/{tpId}": {
+      "schema": { "$ref": "#/entities/LearningObjective" },
+      "description": "Learning objectives (TP)"
+    },
+    "/modules/{moduleId}": {
+      "schema": { "$ref": "#/entities/TeachingModule" },
+      "description": "Teaching modules / lesson plans"
+    },
+    "/starters/{starterId}": {
+      "schema": { "$ref": "#/entities/StarterPrompt" },
+      "description": "Class starter prompts and slide decks"
+    },
+    "/cloudFiles/{fileId}": {
+      "schema": { "$ref": "#/entities/CloudFile" },
+      "description": "Cloud Vault file metadata and native AI analysis"
+    },
+    "/cbtExams/{cbtId}": {
+      "schema": { "$ref": "#/entities/CbtExam" },
+      "description": "CBT exam package metadata"
+    },
+    "/cbtExams/{cbtId}/pgQuestions/{qId}": {
+      "schema": { "$ref": "#/entities/CbtPgQuestion" },
+      "description": "CBT multiple-choice questions subcollection"
+    },
+    "/cbtExams/{cbtId}/essayQuestions/{qId}": {
+      "schema": { "$ref": "#/entities/CbtEssayQuestion" },
+      "description": "CBT essay questions subcollection"
+    },
+    "/cbtResults/{resultId}": {
+      "schema": { "$ref": "#/entities/CbtResult" },
+      "description": "CBT student results and AI grading feedback"
+    },
+    "/staffUsers/{staffId}": {
+      "schema": { "$ref": "#/entities/StaffUser" },
+      "description": "Teacher and homeroom staff directory"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Remix Sistem Manajemen Kelas Terpadu",
+  "description": "Aplikasi manajemen kelas otomatis dan komprehensif untuk absensi, penilaian, denah duduk, jadwal pelajaran, perangkat ajar, jurnal perilaku, serta portal siswa dan wali kelas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

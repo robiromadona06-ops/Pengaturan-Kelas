@@ -1,0 +1,1992 @@
+{
+  "admin": {
+    "user": "admin",
+    "salt": "1c46e55f-70d4-4a7e-b518-f43c5a9cb557",
+    "hash": "o39CliCDfzIDdFXrjBbNFmJjVaglVoz9DYXp9QGiUzk="
+  },
+  "sheets": {
+    "Pengaturan": [
+      {
+        "Kunci": "sekolah",
+        "Nilai": "SMA Negeri 1 Nusantara"
+      },
+      {
+        "Kunci": "logo",
+        "Nilai": ""
+      },
+      {
+        "Kunci": "jurusan",
+        "Nilai": "MIPA, IPS, Bahasa"
+      },
+      {
+        "Kunci": "jurusanLogos",
+        "Nilai": "{}"
+      },
+      {
+        "Kunci": "waInfo",
+        "Nilai": "6281234567890"
+      },
+      {
+        "Kunci": "emailPemulihan",
+        "Nilai": "robisaiful@gmail.com"
+      },
+      {
+        "Kunci": "kodeReset",
+        "Nilai": "NUSANTARA2026"
+      },
+      {
+        "Kunci": "guru",
+        "Nilai": "Dra. Ratna Sari, M.Pd."
+      },
+      {
+        "Kunci": "wali",
+        "Nilai": "Dra. Ratna Sari, M.Pd."
+      },
+      {
+        "Kunci": "semester",
+        "Nilai": "Ganjil 2026/2027"
+      },
+      {
+        "Kunci": "mulai",
+        "Nilai": "2026-07-15"
+      },
+      {
+        "Kunci": "kkm",
+        "Nilai": "75"
+      },
+      {
+        "Kunci": "b_sikap",
+        "Nilai": "10"
+      },
+      {
+        "Kunci": "b_tugas",
+        "Nilai": "20"
+      },
+      {
+        "Kunci": "b_proyek",
+        "Nilai": "20"
+      },
+      {
+        "Kunci": "b_uts",
+        "Nilai": "20"
+      },
+      {
+        "Kunci": "b_uas",
+        "Nilai": "30"
+      },
+      {
+        "Kunci": "kaldikAutoSync",
+        "Nilai": "1"
+      },
+      {
+        "Kunci": "kaldikWilayah",
+        "Nilai": "Provinsi Jawa Barat"
+      },
+      {
+        "Kunci": "kaldikTahunAjaran",
+        "Nilai": "2026/2027"
+      },
+      {
+        "Kunci": "kaldikLastSync",
+        "Nilai": "2026-07-15"
+      }
+    ],
+    "Kelas": [
+      {
+        "ID": "kls_10a",
+        "Nama": "X MIPA 1",
+        "Jurusan": "MIPA",
+        "Mapel": ""
+      },
+      {
+        "ID": "kls_10b",
+        "Nama": "X MIPA 2",
+        "Jurusan": "MIPA",
+        "Mapel": ""
+      },
+      {
+        "ID": "kls_11a",
+        "Nama": "XI MIPA 1",
+        "Jurusan": "MIPA",
+        "Mapel": ""
+      }
+    ],
+    "Siswa": [
+      {
+        "ID": "sis_01",
+        "Kelas": "kls_10a",
+        "Nama": "Adinda Putri Maharani",
+        "NIS": "102601",
+        "NoSiswa": "081234567801",
+        "NoOrtu": "081398765001",
+        "Alamat": "Jl. Merdeka No. 12",
+        "Kesehatan": "Normal"
+      },
+      {
+        "ID": "sis_02",
+        "Kelas": "kls_10a",
+        "Nama": "Bagas Pratama Wijaya",
+        "NIS": "102602",
+        "NoSiswa": "081234567802",
+        "NoOrtu": "081398765002",
+        "Alamat": "Jl. Sudirman No. 45",
+        "Kesehatan": "Alergi debu"
+      },
+      {
+        "ID": "sis_03",
+        "Kelas": "kls_10a",
+        "Nama": "Citra Kirana Lestari",
+        "NIS": "102603",
+        "NoSiswa": "081234567803",
+        "NoOrtu": "081398765003",
+        "Alamat": "Jl. Diponegoro No. 8",
+        "Kesehatan": "Normal"
+      },
+      {
+        "ID": "sis_04",
+        "Kelas": "kls_10a",
+        "Nama": "Dimas Aditya Saputra",
+        "NIS": "102604",
+        "NoSiswa": "081234567804",
+        "NoOrtu": "081398765004",
+        "Alamat": "Jl. Gatot Subroto No. 19",
+        "Kesehatan": "Minus mata (-1.5)"
+      },
+      {
+        "ID": "sis_05",
+        "Kelas": "kls_10a",
+        "Nama": "Eka Fitriani Rahmawati",
+        "NIS": "102605",
+        "NoSiswa": "081234567805",
+        "NoOrtu": "081398765005",
+        "Alamat": "Jl. Ahmad Yani No. 33",
+        "Kesehatan": "Normal"
+      },
+      {
+        "ID": "sis_06",
+        "Kelas": "kls_10a",
+        "Nama": "Fajar Nugroho Hidayat",
+        "NIS": "102606",
+        "NoSiswa": "081234567806",
+        "NoOrtu": "081398765006",
+        "Alamat": "Jl. Kartini No. 7",
+        "Kesehatan": "Asma ringan"
+      },
+      {
+        "ID": "sis_07",
+        "Kelas": "kls_10a",
+        "Nama": "Gita Nadia Permata",
+        "NIS": "102607",
+        "NoSiswa": "081234567807",
+        "NoOrtu": "081398765007",
+        "Alamat": "Jl. Imam Bonjol No. 21",
+        "Kesehatan": "Normal"
+      },
+      {
+        "ID": "sis_08",
+        "Kelas": "kls_10a",
+        "Nama": "Hafiz Ramadhan Putra",
+        "NIS": "102608",
+        "NoSiswa": "081234567808",
+        "NoOrtu": "081398765008",
+        "Alamat": "Jl. Pahlawan No. 54",
+        "Kesehatan": "Normal"
+      },
+      {
+        "ID": "sis_09",
+        "Kelas": "kls_10a",
+        "Nama": "Indah Kusuma Wardani",
+        "NIS": "102609",
+        "NoSiswa": "081234567809",
+        "NoOrtu": "081398765009",
+        "Alamat": "Jl. Veteran No. 14",
+        "Kesehatan": "Normal"
+      },
+      {
+        "ID": "sis_10",
+        "Kelas": "kls_10a",
+        "Nama": "Joko Susilo Wibowo",
+        "NIS": "102610",
+        "NoSiswa": "081234567810",
+        "NoOrtu": "081398765010",
+        "Alamat": "Jl. Pemuda No. 28",
+        "Kesehatan": "Normal"
+      },
+      {
+        "ID": "sis_11",
+        "Kelas": "kls_10a",
+        "Nama": "Kartika Sari Dewi",
+        "NIS": "102611",
+        "NoSiswa": "081234567811",
+        "NoOrtu": "081398765011",
+        "Alamat": "Jl. Cendrawasih No. 9",
+        "Kesehatan": "Normal"
+      },
+      {
+        "ID": "sis_12",
+        "Kelas": "kls_10a",
+        "Nama": "Luthfi Hakim Maulana",
+        "NIS": "102612",
+        "NoSiswa": "081234567812",
+        "NoOrtu": "081398765012",
+        "Alamat": "Jl. Melati No. 3",
+        "Kesehatan": "Normal"
+      },
+      {
+        "ID": "sis_13",
+        "Kelas": "kls_10b",
+        "Nama": "Muhammad Rizky Pratama",
+        "NIS": "102613",
+        "NoSiswa": "081234567813",
+        "NoOrtu": "081398765013",
+        "Alamat": "Jl. Kenanga No. 11",
+        "Kesehatan": "Normal"
+      },
+      {
+        "ID": "sis_14",
+        "Kelas": "kls_10b",
+        "Nama": "Nabila Azzahra Putri",
+        "NIS": "102614",
+        "NoSiswa": "081234567814",
+        "NoOrtu": "081398765014",
+        "Alamat": "Jl. Anggrek No. 20",
+        "Kesehatan": "Normal"
+      },
+      {
+        "ID": "sis_15",
+        "Kelas": "kls_11a",
+        "Nama": "Raka Danuarta",
+        "NIS": "112601",
+        "NoSiswa": "081234567815",
+        "NoOrtu": "081398765015",
+        "Alamat": "Jl. Mawar No. 5",
+        "Kesehatan": "Normal"
+      }
+    ],
+    "Absensi": [
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_01",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_02",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_03",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_04",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_05",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_06",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_07",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_08",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_09",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_10",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_11",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-11",
+        "SiswaID": "sis_12",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_01",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_02",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_03",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_04",
+        "Kode": "S",
+        "Keterangan": "Demam (surat orang tua)",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_05",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_06",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_07",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_08",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_09",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_10",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_11",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_12",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_01",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_02",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_03",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_04",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_05",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_06",
+        "Kode": "I",
+        "Keterangan": "Acara keluarga",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_07",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_08",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_09",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_10",
+        "Kode": "A",
+        "Keterangan": "Tanpa keterangan",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_11",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_12",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_01",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_02",
+        "Kode": "T",
+        "Keterangan": "Hadir 07:12 karena ban bocor",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_03",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_04",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_05",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_06",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_07",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_08",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_09",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_10",
+        "Kode": "A",
+        "Keterangan": "Belum konfirmasi",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_11",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      },
+      {
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-14",
+        "SiswaID": "sis_12",
+        "Kode": "H",
+        "Keterangan": "",
+        "Sumber": ""
+      }
+    ],
+    "Tugas": [
+      {
+        "ID": "tug_1",
+        "Kelas": "kls_10a",
+        "Judul": "Latihan Eksponen & Logaritma",
+        "Mapel": "Matematika",
+        "Deskripsi": "Kerjakan soal latihan nomor 1-10 lengkap dengan langkah penyelesaian.",
+        "Tenggat": "2026-11-12",
+        "Jenis": "Tugas",
+        "FileID": "",
+        "NamaFile": ""
+      },
+      {
+        "ID": "tug_2",
+        "Kelas": "kls_10a",
+        "Judul": "Kuis Sistem Persamaan Linear",
+        "Mapel": "Matematika",
+        "Deskripsi": "Selesaikan persamaan linear 3 variabel dan unggah hasil kerja.",
+        "Tenggat": "2026-11-13",
+        "Jenis": "Kuis harian",
+        "FileID": "",
+        "NamaFile": ""
+      },
+      {
+        "ID": "tug_3",
+        "Kelas": "kls_10a",
+        "Judul": "Proyek Pemodelan Fungsi Kuadrat",
+        "Mapel": "Matematika",
+        "Deskripsi": "Buat laporan pemodelan parabola dalam kehidupan sehari-hari (PDF atau foto grafik).",
+        "Tenggat": "2026-11-19",
+        "Jenis": "Proyek",
+        "FileID": "",
+        "NamaFile": ""
+      }
+    ],
+    "Pengumpulan": [
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_01",
+        "Status": "Tepat Waktu",
+        "Nilai": "82",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_01",
+        "Status": "Tepat Waktu",
+        "Nilai": "78",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_01",
+        "Status": "Tepat Waktu",
+        "Nilai": "84",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_02",
+        "Status": "Tepat Waktu",
+        "Nilai": "85",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_02",
+        "Status": "Tepat Waktu",
+        "Nilai": "83",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_02",
+        "Status": "Tepat Waktu",
+        "Nilai": "86",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_03",
+        "Status": "Tepat Waktu",
+        "Nilai": "88",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_03",
+        "Status": "Tepat Waktu",
+        "Nilai": "88",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_03",
+        "Status": "Tepat Waktu",
+        "Nilai": "88",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_04",
+        "Status": "Tepat Waktu",
+        "Nilai": "91",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_04",
+        "Status": "Tepat Waktu",
+        "Nilai": "93",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_04",
+        "Status": "Tepat Waktu",
+        "Nilai": "90",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_05",
+        "Status": "Tepat Waktu",
+        "Nilai": "94",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_05",
+        "Status": "Tepat Waktu",
+        "Nilai": "78",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_05",
+        "Status": "Tepat Waktu",
+        "Nilai": "92",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_06",
+        "Status": "Tepat Waktu",
+        "Nilai": "97",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_06",
+        "Status": "Terlambat",
+        "Nilai": "83",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_06",
+        "Status": "Tepat Waktu",
+        "Nilai": "94",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_07",
+        "Status": "Tepat Waktu",
+        "Nilai": "84",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_07",
+        "Status": "Tepat Waktu",
+        "Nilai": "88",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_07",
+        "Status": "Tepat Waktu",
+        "Nilai": "96",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_08",
+        "Status": "Tepat Waktu",
+        "Nilai": "87",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_08",
+        "Status": "Tepat Waktu",
+        "Nilai": "93",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_08",
+        "Status": "Tepat Waktu",
+        "Nilai": "84",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_09",
+        "Status": "Tepat Waktu",
+        "Nilai": "90",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_09",
+        "Status": "Tepat Waktu",
+        "Nilai": "78",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_09",
+        "Status": "Belum",
+        "Nilai": "",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_10",
+        "Status": "Terlambat",
+        "Nilai": "93",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_10",
+        "Status": "Tepat Waktu",
+        "Nilai": "83",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_10",
+        "Status": "Belum",
+        "Nilai": "",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_11",
+        "Status": "Tepat Waktu",
+        "Nilai": "96",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_11",
+        "Status": "Tepat Waktu",
+        "Nilai": "88",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_11",
+        "Status": "Belum",
+        "Nilai": "",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_1",
+        "SiswaID": "sis_12",
+        "Status": "Tepat Waktu",
+        "Nilai": "83",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-12",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_2",
+        "SiswaID": "sis_12",
+        "Status": "Tepat Waktu",
+        "Nilai": "93",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "2026-11-13",
+        "CatatanSiswa": ""
+      },
+      {
+        "TugasID": "tug_3",
+        "SiswaID": "sis_12",
+        "Status": "Belum",
+        "Nilai": "",
+        "FileID": "",
+        "NamaFile": "",
+        "TanggalKumpul": "",
+        "CatatanSiswa": ""
+      }
+    ],
+    "Nilai": [
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_01",
+        "Sikap": "95",
+        "Tugas": "80",
+        "Proyek": "84",
+        "UTS": "76",
+        "UAS": "80"
+      },
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_02",
+        "Sikap": "95",
+        "Tugas": "84",
+        "Proyek": "86",
+        "UTS": "80",
+        "UAS": "83"
+      },
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_03",
+        "Sikap": "95",
+        "Tugas": "88",
+        "Proyek": "88",
+        "UTS": "84",
+        "UAS": "86"
+      },
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_04",
+        "Sikap": "95",
+        "Tugas": "92",
+        "Proyek": "90",
+        "UTS": "88",
+        "UAS": "89"
+      },
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_05",
+        "Sikap": "95",
+        "Tugas": "86",
+        "Proyek": "92",
+        "UTS": "92",
+        "UAS": "92"
+      },
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_06",
+        "Sikap": "95",
+        "Tugas": "90",
+        "Proyek": "94",
+        "UTS": "96",
+        "UAS": "95"
+      },
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_07",
+        "Sikap": "95",
+        "Tugas": "86",
+        "Proyek": "96",
+        "UTS": "78",
+        "UAS": "80"
+      },
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_08",
+        "Sikap": "95",
+        "Tugas": "90",
+        "Proyek": "84",
+        "UTS": "82",
+        "UAS": "83"
+      },
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_09",
+        "Sikap": "95",
+        "Tugas": "84",
+        "Proyek": "86",
+        "UTS": "86",
+        "UAS": "86"
+      },
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_10",
+        "Sikap": "80",
+        "Tugas": "88",
+        "Proyek": "88",
+        "UTS": "68",
+        "UAS": "70"
+      },
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_11",
+        "Sikap": "95",
+        "Tugas": "92",
+        "Proyek": "90",
+        "UTS": "94",
+        "UAS": "92"
+      },
+      {
+        "Kelas": "kls_10a",
+        "SiswaID": "sis_12",
+        "Sikap": "95",
+        "Tugas": "88",
+        "Proyek": "92",
+        "UTS": "76",
+        "UAS": "95"
+      }
+    ],
+    "Perilaku": [
+      {
+        "ID": "per_1",
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-12",
+        "SiswaID": "sis_01",
+        "Jenis": "Penguatan positif",
+        "Level": "",
+        "Catatan": "Memimpin diskusi kelompok dan membantu teman memahami materi logaritma",
+        "TindakLanjut": "Apresiasi di depan kelas dan poin bintang"
+      },
+      {
+        "ID": "per_2",
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_03",
+        "Jenis": "Penguatan positif",
+        "Level": "",
+        "Catatan": "Menyiapkan perangkat proyektor dan kebersihan kelas sebelum jam pertama",
+        "TindakLanjut": "Pesan apresiasi ke orang tua"
+      },
+      {
+        "ID": "per_3",
+        "Kelas": "kls_10a",
+        "Tanggal": "2026-11-13",
+        "SiswaID": "sis_10",
+        "Jenis": "Pelanggaran",
+        "Level": "1",
+        "Catatan": "Kurang fokus dan mengobrol saat penjelasan materi inti",
+        "TindakLanjut": "Pengingat lisan dan pemindahan posisi diskusi"
+      }
+    ],
+    "Checklist": [
+      {
+        "Kelas": "kls_10a",
+        "Item": "0",
+        "Selesai": "1"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Item": "1",
+        "Selesai": "1"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Item": "2",
+        "Selesai": "1"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Item": "3",
+        "Selesai": "1"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Item": "4",
+        "Selesai": "1"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Item": "5",
+        "Selesai": "1"
+      }
+    ],
+    "DenahAtur": [
+      {
+        "Kelas": "kls_10a",
+        "Baris": "4",
+        "Kolom": "4",
+        "Grup": "2"
+      }
+    ],
+    "Denah": [
+      {
+        "Kelas": "kls_10a",
+        "Baris": "1",
+        "Kolom": "1",
+        "SiswaID": "sis_01"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Baris": "1",
+        "Kolom": "2",
+        "SiswaID": "sis_02"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Baris": "1",
+        "Kolom": "3",
+        "SiswaID": "sis_03"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Baris": "1",
+        "Kolom": "4",
+        "SiswaID": "sis_04"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Baris": "2",
+        "Kolom": "1",
+        "SiswaID": "sis_05"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Baris": "2",
+        "Kolom": "2",
+        "SiswaID": "sis_06"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Baris": "2",
+        "Kolom": "3",
+        "SiswaID": "sis_07"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Baris": "2",
+        "Kolom": "4",
+        "SiswaID": "sis_08"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Baris": "3",
+        "Kolom": "1",
+        "SiswaID": "sis_09"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Baris": "3",
+        "Kolom": "2",
+        "SiswaID": "sis_10"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Baris": "3",
+        "Kolom": "3",
+        "SiswaID": "sis_11"
+      },
+      {
+        "Kelas": "kls_10a",
+        "Baris": "3",
+        "Kolom": "4",
+        "SiswaID": "sis_12"
+      }
+    ],
+    "Piket": [
+      {
+        "ID": "pik_1",
+        "Kelas": "kls_10a",
+        "Hari": "Senin",
+        "SiswaID": "sis_01",
+        "Tugas": "Menyapu lantai"
+      },
+      {
+        "ID": "pik_2",
+        "Kelas": "kls_10a",
+        "Hari": "Selasa",
+        "SiswaID": "sis_02",
+        "Tugas": "Mengepel"
+      },
+      {
+        "ID": "pik_3",
+        "Kelas": "kls_10a",
+        "Hari": "Rabu",
+        "SiswaID": "sis_03",
+        "Tugas": "Menghapus papan tulis"
+      },
+      {
+        "ID": "pik_4",
+        "Kelas": "kls_10a",
+        "Hari": "Kamis",
+        "SiswaID": "sis_04",
+        "Tugas": "Merapikan meja & kursi"
+      },
+      {
+        "ID": "pik_5",
+        "Kelas": "kls_10a",
+        "Hari": "Jumat",
+        "SiswaID": "sis_05",
+        "Tugas": "Membuang sampah"
+      },
+      {
+        "ID": "pik_6",
+        "Kelas": "kls_10a",
+        "Hari": "Senin",
+        "SiswaID": "sis_06",
+        "Tugas": "Menyapu lantai"
+      },
+      {
+        "ID": "pik_7",
+        "Kelas": "kls_10a",
+        "Hari": "Selasa",
+        "SiswaID": "sis_07",
+        "Tugas": "Mengepel"
+      },
+      {
+        "ID": "pik_8",
+        "Kelas": "kls_10a",
+        "Hari": "Rabu",
+        "SiswaID": "sis_08",
+        "Tugas": "Menghapus papan tulis"
+      },
+      {
+        "ID": "pik_9",
+        "Kelas": "kls_10a",
+        "Hari": "Kamis",
+        "SiswaID": "sis_09",
+        "Tugas": "Merapikan meja & kursi"
+      },
+      {
+        "ID": "pik_10",
+        "Kelas": "kls_10a",
+        "Hari": "Jumat",
+        "SiswaID": "sis_10",
+        "Tugas": "Membuang sampah"
+      },
+      {
+        "ID": "pik_11",
+        "Kelas": "kls_10a",
+        "Hari": "Senin",
+        "SiswaID": "sis_11",
+        "Tugas": "Menyapu lantai"
+      },
+      {
+        "ID": "pik_12",
+        "Kelas": "kls_10a",
+        "Hari": "Selasa",
+        "SiswaID": "sis_12",
+        "Tugas": "Mengepel"
+      }
+    ],
+    "Struktur": [
+      {
+        "ID": "str_1",
+        "Kelas": "kls_10a",
+        "Jabatan": "Ketua Kelas",
+        "SiswaID": "sis_02",
+        "Tingkat": "1"
+      },
+      {
+        "ID": "str_2",
+        "Kelas": "kls_10a",
+        "Jabatan": "Wakil Ketua",
+        "SiswaID": "sis_04",
+        "Tingkat": "1"
+      },
+      {
+        "ID": "str_3",
+        "Kelas": "kls_10a",
+        "Jabatan": "Sekretaris",
+        "SiswaID": "sis_01",
+        "Tingkat": "2"
+      },
+      {
+        "ID": "str_4",
+        "Kelas": "kls_10a",
+        "Jabatan": "Bendahara",
+        "SiswaID": "sis_03",
+        "Tingkat": "2"
+      },
+      {
+        "ID": "str_5",
+        "Kelas": "kls_10a",
+        "Jabatan": "Seksi Kebersihan",
+        "SiswaID": "sis_05",
+        "Tingkat": "3"
+      },
+      {
+        "ID": "str_6",
+        "Kelas": "kls_10a",
+        "Jabatan": "Seksi Keamanan",
+        "SiswaID": "sis_06",
+        "Tingkat": "3"
+      },
+      {
+        "ID": "str_7",
+        "Kelas": "kls_10a",
+        "Jabatan": "Seksi Kesehatan",
+        "SiswaID": "sis_07",
+        "Tingkat": "3"
+      },
+      {
+        "ID": "str_8",
+        "Kelas": "kls_10a",
+        "Jabatan": "Seksi Perlengkapan",
+        "SiswaID": "sis_08",
+        "Tingkat": "3"
+      }
+    ],
+    "Jadwal": [
+      {
+        "ID": "jd_1",
+        "Kelas": "kls_10a",
+        "Hari": "Senin",
+        "Mulai": "07:00",
+        "Selesai": "08:30",
+        "Mapel": "Matematika",
+        "Guru": "Dra. Ratna Sari, M.Pd.",
+        "Jenis": "Pelajaran",
+        "Pekan": ""
+      },
+      {
+        "ID": "jd_2",
+        "Kelas": "kls_10a",
+        "Hari": "Senin",
+        "Mulai": "08:30",
+        "Selesai": "09:15",
+        "Mapel": "Bahasa Indonesia",
+        "Guru": "Drs. Hendra Gunawan",
+        "Jenis": "Pelajaran",
+        "Pekan": ""
+      },
+      {
+        "ID": "jd_3",
+        "Kelas": "kls_10a",
+        "Hari": "Senin",
+        "Mulai": "09:15",
+        "Selesai": "09:30",
+        "Mapel": "Istirahat",
+        "Guru": "",
+        "Jenis": "Istirahat",
+        "Pekan": ""
+      },
+      {
+        "ID": "jd_4",
+        "Kelas": "kls_10a",
+        "Hari": "Senin",
+        "Mulai": "09:30",
+        "Selesai": "11:00",
+        "Mapel": "Fisika",
+        "Guru": "Budi Santoso, S.Kom.",
+        "Jenis": "Pelajaran",
+        "Pekan": ""
+      },
+      {
+        "ID": "jd_5",
+        "Kelas": "kls_10a",
+        "Hari": "Selasa",
+        "Mulai": "07:00",
+        "Selesai": "08:30",
+        "Mapel": "Informatika",
+        "Guru": "Budi Santoso, S.Kom.",
+        "Jenis": "Pelajaran",
+        "Pekan": ""
+      },
+      {
+        "ID": "jd_6",
+        "Kelas": "kls_10a",
+        "Hari": "Selasa",
+        "Mulai": "08:30",
+        "Selesai": "09:15",
+        "Mapel": "Kimia",
+        "Guru": "Siti Aminah, S.Pd.",
+        "Jenis": "Pelajaran",
+        "Pekan": ""
+      },
+      {
+        "ID": "jd_7",
+        "Kelas": "kls_10a",
+        "Hari": "Rabu",
+        "Mulai": "07:00",
+        "Selesai": "08:30",
+        "Mapel": "Matematika",
+        "Guru": "Dra. Ratna Sari, M.Pd.",
+        "Jenis": "Pelajaran",
+        "Pekan": ""
+      },
+      {
+        "ID": "jd_8",
+        "Kelas": "kls_10a",
+        "Hari": "Rabu",
+        "Mulai": "08:30",
+        "Selesai": "10:00",
+        "Mapel": "Biologi",
+        "Guru": "Dewi Anggraini, M.Pd.",
+        "Jenis": "Pelajaran",
+        "Pekan": ""
+      },
+      {
+        "ID": "jd_9",
+        "Kelas": "kls_10a",
+        "Hari": "Kamis",
+        "Mulai": "07:00",
+        "Selesai": "08:30",
+        "Mapel": "Bahasa Inggris",
+        "Guru": "Rina Marlina, S.Pd.",
+        "Jenis": "Pelajaran",
+        "Pekan": ""
+      },
+      {
+        "ID": "jd_10",
+        "Kelas": "kls_10a",
+        "Hari": "Jumat",
+        "Mulai": "07:00",
+        "Selesai": "08:30",
+        "Mapel": "PJOK",
+        "Guru": "Agus Setiawan, S.Or.",
+        "Jenis": "Pelajaran",
+        "Pekan": ""
+      }
+    ],
+    "JadwalAtur": [
+      {
+        "Kelas": "kls_10a",
+        "Sistem": "reguler",
+        "Mulai": "07:00",
+        "Durasi": "45",
+        "Jumlah": "8",
+        "Istirahat": "3:15,6:30"
+      }
+    ],
+    "Akademik": [
+      {
+        "ID": "jabar_2026_01",
+        "Mulai": "2026-07-01",
+        "Selesai": "2026-07-14",
+        "Kegiatan": "Libur Kenaikan Kelas / Akhir Tahun Ajaran 2025/2026 (Jawa Barat)",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2026_02",
+        "Mulai": "2026-07-15",
+        "Selesai": "2026-07-15",
+        "Kegiatan": "Hari Pertama Masuk Sekolah (HP) & Awal Semester Ganjil TA 2026/2027",
+        "Jenis": "Kegiatan belajar",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2026_03",
+        "Mulai": "2026-07-15",
+        "Selesai": "2026-07-21",
+        "Kegiatan": "Masa Pengenalan Lingkungan Sekolah (MPLS) & Administrasi Kelas",
+        "Jenis": "Kegiatan sekolah",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2026_04",
+        "Mulai": "2026-08-17",
+        "Selesai": "2026-08-17",
+        "Kegiatan": "Libur Nasional Hari Kemerdekaan Republik Indonesia",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2026_05",
+        "Mulai": "2026-08-25",
+        "Selesai": "2026-08-25",
+        "Kegiatan": "Libur Nasional Maulid Nabi Muhammad SAW",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2026_06",
+        "Mulai": "2026-09-14",
+        "Selesai": "2026-09-19",
+        "Kegiatan": "Prakiraan Penilaian Tengah Semester (PTS) / Sumatif Tengah Semester Ganjil",
+        "Jenis": "Ujian",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2026_07",
+        "Mulai": "2026-10-26",
+        "Selesai": "2026-11-08",
+        "Kegiatan": "Tes Kemampuan Akademik (TKA) / Asesmen Kelas Akhir SMA/SMK Jabar",
+        "Jenis": "Ujian",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2026_08",
+        "Mulai": "2026-11-25",
+        "Selesai": "2026-11-25",
+        "Kegiatan": "Peringatan Hari Guru Nasional & HUT PGRI",
+        "Jenis": "Kegiatan sekolah",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2026_09",
+        "Mulai": "2026-11-30",
+        "Selesai": "2026-12-11",
+        "Kegiatan": "Pelaksanaan Asesmen Sumatif Akhir Semester (SAS) Ganjil Jawa Barat",
+        "Jenis": "Ujian",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2026_10",
+        "Mulai": "2026-12-23",
+        "Selesai": "2026-12-23",
+        "Kegiatan": "Tanggal Penetapan & Pembagian Rapor Semester 1 (Ganjil)",
+        "Jenis": "Rapor",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2026_11",
+        "Mulai": "2026-12-25",
+        "Selesai": "2026-12-25",
+        "Kegiatan": "Libur Nasional Hari Raya Natal",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2026_12",
+        "Mulai": "2026-12-28",
+        "Selesai": "2027-01-08",
+        "Kegiatan": "Libur Semester 1 (Ganjil) Provinsi Jawa Barat",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_01",
+        "Mulai": "2027-01-01",
+        "Selesai": "2027-01-01",
+        "Kegiatan": "Libur Nasional Tahun Baru 2027 Masehi",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_02",
+        "Mulai": "2027-01-11",
+        "Selesai": "2027-01-11",
+        "Kegiatan": "Hari Pertama Masuk Sekolah Semester Genap TA 2026/2027",
+        "Jenis": "Kegiatan belajar",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_03",
+        "Mulai": "2027-01-16",
+        "Selesai": "2027-01-16",
+        "Kegiatan": "Libur Nasional Isra Mi’raj Nabi Muhammad SAW",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_04",
+        "Mulai": "2027-02-06",
+        "Selesai": "2027-02-06",
+        "Kegiatan": "Libur Nasional Tahun Baru Imlek 2578 Kongzili",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_05",
+        "Mulai": "2027-03-08",
+        "Selesai": "2027-03-13",
+        "Kegiatan": "Prakiraan Penilaian Tengah Semester (PTS) / Sumatif Tengah Semester Genap",
+        "Jenis": "Ujian",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_06",
+        "Mulai": "2027-03-18",
+        "Selesai": "2027-03-27",
+        "Kegiatan": "Prakiraan Libur Hari Raya Idul Fitri 1448 H & Cuti Bersama",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_07",
+        "Mulai": "2027-04-05",
+        "Selesai": "2027-04-16",
+        "Kegiatan": "Prakiraan Ujian Satuan Pendidikan (USP) / Uji Kompetensi Keahlian",
+        "Jenis": "Ujian",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_08",
+        "Mulai": "2027-05-01",
+        "Selesai": "2027-05-01",
+        "Kegiatan": "Libur Nasional Hari Buruh Internasional",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_09",
+        "Mulai": "2027-05-17",
+        "Selesai": "2027-05-17",
+        "Kegiatan": "Libur Nasional Hari Raya Idul Adha 1448 H",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_10",
+        "Mulai": "2027-06-01",
+        "Selesai": "2027-06-01",
+        "Kegiatan": "Libur Nasional Hari Lahir Pancasila",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_11",
+        "Mulai": "2027-06-06",
+        "Selesai": "2027-06-06",
+        "Kegiatan": "Libur Nasional Tahun Baru Islam 1449 H",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_12",
+        "Mulai": "2027-06-07",
+        "Selesai": "2027-06-18",
+        "Kegiatan": "Prakiraan Asesmen Sumatif Akhir Tahun (SAT) / Penilaian Akhir Tahun Jabar",
+        "Jenis": "Ujian",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_13",
+        "Mulai": "2027-06-25",
+        "Selesai": "2027-06-25",
+        "Kegiatan": "Penetapan & Pembagian Rapor Semester 2 (Genap) Jawa Barat",
+        "Jenis": "Rapor",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      },
+      {
+        "ID": "jabar_2027_14",
+        "Mulai": "2027-06-28",
+        "Selesai": "2027-07-09",
+        "Kegiatan": "Masa Libur Akhir Tahun Pelajaran 2026/2027 Provinsi Jawa Barat",
+        "Jenis": "Libur",
+        "Sumber": "Kaldik Disdik Jabar 2026/2027"
+      }
+    ],
+    "TP": [
+      {
+        "ID": "tp_1",
+        "Kelas": "kls_10a",
+        "Kode": "TP 1",
+        "Tujuan": "Peserta didik mampu menggeneralisasi sifat-sifat eksponen dan logaritma serta menerapkannya dalam penyelesaian masalah kontekstual.",
+        "Materi": "Eksponen & Logaritma",
+        "Status": "Tercapai"
+      },
+      {
+        "ID": "tp_2",
+        "Kelas": "kls_10a",
+        "Kode": "TP 2",
+        "Tujuan": "Peserta didik mampu memodelkan dan menyelesaikan sistem persamaan linear tiga variabel (SPLTV).",
+        "Materi": "SPLTV",
+        "Status": "Tercapai"
+      },
+      {
+        "ID": "tp_3",
+        "Kelas": "kls_10a",
+        "Kode": "TP 3",
+        "Tujuan": "Peserta didik mampu menganalisis karakteristik grafik fungsi kuadrat dan menentukan titik optimum.",
+        "Materi": "Fungsi Kuadrat",
+        "Status": "Berjalan"
+      }
+    ],
+    "Modul": [
+      {
+        "ID": "mod_1",
+        "Kelas": "kls_10a",
+        "Judul": "Eksplorasi Fungsi Kuadrat & Lintasan Parabola",
+        "Mapel": "Matematika",
+        "Alokasi": "2 × 45 menit",
+        "TPIDs": "tp_3",
+        "Pembuka": "Salam, doa, dan cek kehadiran dalam 5 menit pertama.\nApersepsi: Mengaitkan lintasan bola basket dengan kurva parabola.\nMenyampaikan tujuan pembelajaran dan kriteria keberhasilan.",
+        "Inti": "Kegiatan 1: Eksplorasi grafik f(x) = ax² + bx + c menggunakan lembar kerja kelompok.\nKegiatan 2: Diskusi kelompok heterogen menganalisis pengaruh koefisien a, b, dan diskriminan D.\nDiferensiasi: Kelompok mahir menganalisis optimasi luas maksimum.",
+        "Penutup": "Rangkuman bersama tentang titik puncak dan sumbu simetri.\nRefleksi singkat (exit ticket 3 menit).\nInformasi tugas proyek pertemuan berikutnya.",
+        "Asesmen": "Formatif: Observasi diskusi & Exit Ticket.\nSumatif: Proyek pemodelan jembatan parabola.",
+        "Media": "LKPD Fungsi Kuadrat, GeoGebra Interaktif, Proyektor",
+        "Catatan": "85% siswa antusias saat simulasi visual kurva."
+      }
+    ],
+    "Pemantik": [
+      {
+        "ID": "pem_1",
+        "Kelas": "kls_10a",
+        "Judul": "Mengapa Lintasan Air Mancur Berbentuk Parabola?",
+        "Tautan": "https://www.geogebra.org",
+        "Pertanyaan": "Jika kecepatan air mancur tetap, pada sudut kemiringan berapa air mencapai titik tertinggi dan jarak terjauh?",
+        "Slide": "Lintasan Parabola di Sekitar Kita\nPerhatikan bentuk lengkungan jembatan gantung, lemparan bola basket, dan pancuran air taman.\n---\nHubungan dengan Persamaan Kuadrat\nSetiap titik ketinggian y pada jarak mendatar x mengikuti fungsi kuadrat f(x) = ax² + bx + c dengan nilai a negatif.\n---\nTantangan Diskusi Kelompok\n1. Apa yang terjadi jika nilai a diperbesar?\n2. Bagaimana cara menemukan titik puncak tertinggi tanpa menggambar seluruh tabel?"
+      }
+    ],
+    "Mapel": [
+      {
+        "ID": "mp1",
+        "Nama": "Matematika"
+      },
+      {
+        "ID": "mp2",
+        "Nama": "Bahasa Indonesia"
+      },
+      {
+        "ID": "mp3",
+        "Nama": "Bahasa Inggris"
+      },
+      {
+        "ID": "mp4",
+        "Nama": "Fisika"
+      },
+      {
+        "ID": "mp5",
+        "Nama": "Kimia"
+      },
+      {
+        "ID": "mp6",
+        "Nama": "Biologi"
+      },
+      {
+        "ID": "mp7",
+        "Nama": "Sejarah Indonesia"
+      },
+      {
+        "ID": "mp8",
+        "Nama": "Informatika"
+      },
+      {
+        "ID": "mp9",
+        "Nama": "PJOK"
+      },
+      {
+        "ID": "mp10",
+        "Nama": "Pendidikan Pancasila"
+      }
+    ],
+    "BerkasCloud": [
+      {
+        "ID": "cld_sample1",
+        "Kelas": "kls_10a",
+        "NamaFile": "Rekap_Evaluasi_Matematika_Triwulan1.csv",
+        "TipeMime": "text/csv",
+        "Ukuran": "18420",
+        "TanggalUnggah": "2026-11-13",
+        "Pengunggah": "Dra. Ratna Sari, M.Pd.",
+        "StatusCloud": "Tersimpan Aman (AES-256 Cloud Vault)",
+        "PathSimpan": "seed_rekap_evaluasi.csv",
+        "AnalisisJSON": "{\"ringkasanEksekutif\":\"Dokumen berisi rekapitulasi capaian nilai formatif dan sumatif Matematika kelas X MIPA 1. Secara keseluruhan 91,6% siswa telah melampaui batas ketuntasan minimal (KKM 75) dengan rata-rata kelas 84,2.\",\"informasiKunci\":[\"Rata-rata nilai Latihan Eksponen & Logaritma mencapai 86,4 dengan tingkat pengumpulan tepat waktu 91,6%.\",\"Terdapat korelasi positif kuat antara tingkat kehadiran (>95%) dengan capaian nilai Proyek Pemodelan Fungsi Kuadrat.\",\"1 siswa (Joko Susilo Wibowo) berada di bawah KKM pada komponen UTS (68) disertai catatan 2 hari alpa.\"],\"identifikasiTren\":[\"Tren peningkatan skor rata-rata sebesar +4,8 poin dari Kuis SPLTV ke Proyek Fungsi Kuadrat.\",\"Siswa yang aktif dalam diskusi kelompok heterogen menunjukkan stabilitas nilai di atas 85 pada seluruh komponen.\"],\"rekomendasiTindakLanjut\":[\"Jadwalkan sesi klinik remedial terfokus materi Eksponen & Fungsi Kuadrat bagi 1 siswa yang belum tuntas sebelum pelaksanaan UAS.\",\"Berikan tantangan proyek pengayaan optimasi kurva bagi 4 siswa dengan capaian predikat A (≥90).\",\"Lakukan komunikasi persuasif bersama orang tua terkait kedisiplinan kehadiran siswa dengan catatan alpa.\"],\"kategoriDokumen\":\"Spreadsheet Evaluasi Akademik\"}"
+      }
+    ],
+    "CBT": [
+      {
+        "ID": "cbt_demo1",
+        "Kelas": "kls_10a",
+        "Judul": "Evaluasi Formatif: Eksponen & Logaritma",
+        "Mapel": "Matematika",
+        "Durasi": "30",
+        "Status": "Aktif",
+        "Acak": "0",
+        "SumberMateri": "Ringkasan Materi Eksponen dan Logaritma:\n1. Sifat Eksponen: Untuk bilangan real a > 0, berlaku a^m × a^n = a^(m+n), a^m / a^n = a^(m-n), (a^m)^n = a^(m×n), dan a^0 = 1.\n2. Persamaan Eksponen: Jika a^f(x) = a^g(x) dengan a > 0 dan a ≠ 1, maka f(x) = g(x).\n3. Definisi Logaritma: ^a log b = c jika dan hanya jika a^c = b, dengan syarat basis a > 0, a ≠ 1, dan numerus b > 0.\n4. Sifat Logaritma: ^a log(x·y) = ^a log x + ^a log y; ^a log(x/y) = ^a log x - ^a log y; dan ^a log(x^n) = n · ^a log x.",
+        "NamaFileMateri": "",
+        "TanggalBuat": "2026-11-13",
+        "SoalJSON": "{\"soalPG\":[{\"id\":\"pg_1\",\"pertanyaan\":\"Berdasarkan sifat eksponen pada materi, bentuk sederhana dari a^m × a^n adalah…\",\"opsiA\":\"a^(m-n)\",\"opsiB\":\"a^(m+n)\",\"opsiC\":\"a^(m×n)\",\"opsiD\":\"(2a)^(m+n)\",\"opsiE\":\"a^(m/n)\",\"kunci\":\"B\",\"pembahasan\":\"Perkalian bilangan berpangkat dengan basis sama menjumlahkan pangkatnya: a^m × a^n = a^(m+n).\",\"kutipanMateri\":\"a^m × a^n = a^(m+n)\"},{\"id\":\"pg_2\",\"pertanyaan\":\"Untuk setiap bilangan real a > 0, nilai dari a^0 sesuai sifat eksponen adalah…\",\"opsiA\":\"0\",\"opsiB\":\"a\",\"opsiC\":\"1\",\"opsiD\":\"-1\",\"opsiE\":\"Tidak terdefinisi\",\"kunci\":\"C\",\"pembahasan\":\"Pada sifat eksponen poin 1 dijelaskan bahwa untuk a > 0 berlaku a^0 = 1.\",\"kutipanMateri\":\"dan a^0 = 1\"},{\"id\":\"pg_3\",\"pertanyaan\":\"Jika diketahui a^f(x) = a^g(x) dengan a > 0 dan a ≠ 1, maka kesimpulan yang benar adalah…\",\"opsiA\":\"f(x) + g(x) = 1\",\"opsiB\":\"f(x) × g(x) = 0\",\"opsiC\":\"f(x) = a · g(x)\",\"opsiD\":\"f(x) = g(x)\",\"opsiE\":\"f(x) > g(x)\",\"kunci\":\"D\",\"pembahasan\":\"Persamaan eksponen dengan basis sama a > 0, a ≠ 1 menghasilkan penyamaan pangkat f(x) = g(x).\",\"kutipanMateri\":\"Jika a^f(x) = a^g(x) dengan a > 0 dan a ≠ 1, maka f(x) = g(x).\"},{\"id\":\"pg_4\",\"pertanyaan\":\"Syarat yang harus dipenuhi oleh basis a dan numerus b pada definisi ^a log b = c adalah…\",\"opsiA\":\"a > 0, a ≠ 1, dan b > 0\",\"opsiB\":\"a ≥ 0 dan b < 0\",\"opsiC\":\"a = 1 dan b > 0\",\"opsiD\":\"a < 0 dan b ≠ 0\",\"opsiE\":\"a > 1 dan b = 0\",\"kunci\":\"A\",\"pembahasan\":\"Logaritma ^a log b mensyaratkan basis a > 0, a ≠ 1, dan numerus b > 0.\",\"kutipanMateri\":\"dengan syarat basis a > 0, a ≠ 1, dan numerus b > 0.\"},{\"id\":\"pg_5\",\"pertanyaan\":\"Sesuai sifat logaritma pada materi, bentuk ^a log(x · y) setara dengan…\",\"opsiA\":\"^a log x × ^a log y\",\"opsiB\":\"^a log x - ^a log y\",\"opsiC\":\"^a log x + ^a log y\",\"opsiD\":\"x · ^a log y\",\"opsiE\":\"(^a log x) / (^a log y)\",\"kunci\":\"C\",\"pembahasan\":\"Logaritma perkalian diuraikan menjadi penjumlahan logaritma: ^a log(x·y) = ^a log x + ^a log y.\",\"kutipanMateri\":\"^a log(x·y) = ^a log x + ^a log y\"}],\"soalUraian\":[{\"id\":\"ur_1\",\"pertanyaan\":\"Jelaskan hubungan antara definisi logaritma ^a log b = c dengan bentuk pangkatnya beserta syarat nilai a dan b!\",\"kunciRubrik\":\"^a log b = c ekuivalen dengan a^c = b, dengan syarat basis a > 0, a ≠ 1, dan numerus b > 0.\",\"poinMaksimal\":50,\"kutipanMateri\":\"^a log b = c jika dan hanya jika a^c = b, dengan syarat basis a > 0, a ≠ 1, dan numerus b > 0.\"},{\"id\":\"ur_2\",\"pertanyaan\":\"Tuliskan tiga sifat utama logaritma (perkalian, pembagian, dan perpangkatan numerus) yang tercantum dalam ringkasan materi!\",\"kunciRubrik\":\"1) ^a log(x·y) = ^a log x + ^a log y; 2) ^a log(x/y) = ^a log x - ^a log y; 3) ^a log(x^n) = n · ^a log x.\",\"poinMaksimal\":50,\"kutipanMateri\":\"^a log(x·y) = ^a log x + ^a log y; ^a log(x/y) = ^a log x - ^a log y; dan ^a log(x^n) = n · ^a log x.\"}]}"
+      }
+    ],
+    "HasilCBT": [],
+    "Pengguna": [
+      {
+        "ID": "usr_wali1",
+        "Nama": "Dra. Ratna Sari, M.Pd.",
+        "Username": "ratna",
+        "Peran": "wali,guru",
+        "Kelas": "kls_10a,kls_10b",
+        "Hash": "hiLHUKWRpRG4ZZv+T4SQ9637SZE83QagGY+vV8EEf6c=",
+        "Mapel": "mp1",
+        "KelasWali": "kls_10a",
+        "KelasMengajar": "kls_10a,kls_10b"
+      },
+      {
+        "ID": "usr_guru1",
+        "Nama": "Budi Santoso, S.Kom.",
+        "Username": "budi",
+        "Peran": "wali,guru",
+        "Kelas": "kls_11a,kls_10a",
+        "Hash": "gzqheVEe4ouHE9JoMnm3GqZJpYXw7pelQ8RLxE7SAnc=",
+        "Mapel": "mp8,mp4",
+        "KelasWali": "kls_11a",
+        "KelasMengajar": "kls_10a,kls_11a"
+      }
+    ],
+    "Akun": [
+      {
+        "SiswaID": "sis_01",
+        "Hash": "AVN5I1ZFV4vScNgUoqhbwKKEfIVwqnQma55eg8G9YlU="
+      },
+      {
+        "SiswaID": "sis_02",
+        "Hash": "D67N9qjDk08z8+JtpeMnNZPK3e/mj3WzLHA9iBEdsqU="
+      },
+      {
+        "SiswaID": "sis_03",
+        "Hash": "6cF9z6poIHv3gIuu2uJOH3/pOTcB9JLZci29gtwZCRY="
+      },
+      {
+        "SiswaID": "sis_04",
+        "Hash": "humnNjgyhfiCcGWIlzFqo4BRRX8/Dmd8u0vJ+NRd/ig="
+      },
+      {
+        "SiswaID": "sis_05",
+        "Hash": "sf4bJ5CLEn5a+/Qy6kW+AS6OYS871x0y7donEjTTjxY="
+      },
+      {
+        "SiswaID": "sis_06",
+        "Hash": "w9FPj4AAxC9IbKhX984MXMssaUPs4+rFNN6OAz5vHmE="
+      },
+      {
+        "SiswaID": "sis_07",
+        "Hash": "vR9NOvDqXkpfokQosZF5gzZg08r6/4XTKMN3pzq4+Pk="
+      },
+      {
+        "SiswaID": "sis_08",
+        "Hash": "depZ+qg68W3dYmOwrjTUc3afTkoEdWSuwxSF0iGWukc="
+      },
+      {
+        "SiswaID": "sis_09",
+        "Hash": "ffFMOe0MlTCoj+igR2WDVhA6PUDt1A98WgW0wBy+Uiw="
+      },
+      {
+        "SiswaID": "sis_10",
+        "Hash": "an7IME5DXx1Pxndjerq0ud/xpXHI/bA5HGMtasWlDUA="
+      },
+      {
+        "SiswaID": "sis_11",
+        "Hash": "h3Lizma7UvJ/Rm7f7JhCyYHD2JkZVfY6DWHLhCFbScQ="
+      },
+      {
+        "SiswaID": "sis_12",
+        "Hash": "acMFn2n0sIwXt3z9pt1xOy9V11J1xJmBJCoNJYR2d5M="
+      },
+      {
+        "SiswaID": "sis_13",
+        "Hash": "B61kvSQbj0RFfVEp3IlaqmosImVHPblVSoavMwDbZnE="
+      },
+      {
+        "SiswaID": "sis_14",
+        "Hash": "yTfvZQCGB4opWCt0rt1Kq7ob9LxcGfOlj+Nv+mkDL50="
+      },
+      {
+        "SiswaID": "sis_15",
+        "Hash": "VeY4Z79uLFjBpejsaXkrb1kXRTm48LcLfdaScJ9PRX0="
+      }
+    ]
+  }
+}

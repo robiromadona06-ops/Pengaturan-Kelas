@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: linear-gradient(135deg, #f0f4ff 0%, #f8fafc 45%, #fff7ed 100%);
+    background-attachment: fixed;
+    color: #0f172a;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Rainbow accent bar utility */
+.rainbow-strip {
+  background: linear-gradient(
+    90deg,
+    #f43f5e 0%,
+    #f97316 20%,
+    #eab308 40%,
+    #10b981 60%,
+    #0ea5e9 80%,
+    #8b5cf6 100%
+  );
+}
+
+@media print {
+  .noprint {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
